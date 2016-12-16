@@ -1,0 +1,9 @@
+# Radio
+rild.libargs=-d /dev/smd0
+rild.libpath=/system/lib/libsec-ril.so
+ro.ril.telephony.mqanelements=6
+ro.telephony.ril_class=tblteRIL
+ro.debug_level=0x4948
+# Temporary:  REMOVE THIS FINGERPRINT LINE ONCE IT GETS BUILT IN
+ro.build.fingerprint=samsung/tbltexx/tblte:6.0/MDB08M/N915FXXU1COH2:user/release-keys
+
