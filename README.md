@@ -2,5 +2,5 @@ Samsung Galaxy Note EDGE GSM Device tree.
 
 Designed for tbltexx
 
-Edited for SlimRoms by the AlaskaLinuxUser
+Edited by the AlaskaLinuxUser for PAC ROM
 https://thealaskalinuxuser.wordpress.com

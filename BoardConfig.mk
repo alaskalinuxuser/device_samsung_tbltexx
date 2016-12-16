@@ -33,6 +33,9 @@ TARGET_KERNEL_VARIANT_CONFIG := aklu_tblte_eur_defconfig
 # Camera
 TARGET_FIXUP_PREVIEW := true
 
+#TW_THEME
+TW_THEME := portrait_hdpi
+
 # Init
 #TARGET_INIT_VENDOR_LIB := libinit_msm
 #TARGET_LIBINIT_DEFINES_FILE := device/samsung/tbltexx/init/init_tblte.cpp
