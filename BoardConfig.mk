@@ -33,10 +33,7 @@ TARGET_KERNEL_VARIANT_CONFIG := aklu_tblte_eur_defconfig
 # Camera
 TARGET_FIXUP_PREVIEW := true
 
-#TW_THEME
-TW_THEME := portrait_hdpi
-
-# Init
+# Init - This is only used for led lighting, which now has other means to function. WJH.
 #TARGET_INIT_VENDOR_LIB := libinit_msm
 #TARGET_LIBINIT_DEFINES_FILE := device/samsung/tbltexx/init/init_tblte.cpp
 TARGET_UNIFIED_DEVICE := true
