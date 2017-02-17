@@ -15,31 +15,52 @@
 # inherit from common tblte
 -include device/samsung/tblte-common/BoardConfigCommon.mk
 
-TARGET_OTA_ASSERT_DEVICE := tblte,tbltexx,tbltedt,tbltetmo
-
-# Partitions
-BOARD_FLASH_BLOCK_SIZE := 262144
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_BOOTIMAGE_PARTITION_SIZE := 17825792
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 19922944
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3774873600
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 27019685888
-
-# Kernel
-TARGET_KERNEL_VARIANT_CONFIG := aklu_tblte_eur_defconfig
-# Prebuilt kernel if you need it, works.
-# TARGET_PREBUILT_KERNEL := ../../..device/samsung/tbltexx/kernel
+TARGET_OTA_ASSERT_DEVICE := tblte,tbltexx,tbltedt,tbltetmo,tbltecan
 
 # Camera
-TARGET_FIXUP_PREVIEW := true
+TARGET_FIXUP_PREVIEW := true 
 
-# Init - This is only used for led lighting, which now has other means to function. WJH.
-#TARGET_INIT_VENDOR_LIB := libinit_msm
-#TARGET_LIBINIT_DEFINES_FILE := device/samsung/tbltexx/init/init_tblte.cpp
+# Kernel
+BOARD_HAS_LARGE_FILESYSTEM := true
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
+#TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_tblte_eur_defconfig
+TARGET_KERNEL_VARIANT_CONFIG := aklu_sec_tblte_eur_defconfig
+BOARD_BOOTIMAGE_PARTITION_SIZE := 17825792
+# BOARD_RECOVERYIMAGE_PARTITION_SIZE := 199229440
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3774873600 
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 27019685888
+BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
+
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_tblte
 TARGET_UNIFIED_DEVICE := true
-
-# Radio
-BOARD_RIL_CLASS := ../../../device/samsung/tbltexx/ril
 
 # inherit from the proprietary version
 -include vendor/samsung/tbltexx/BoardConfigVendor.mk
+
+#TWRP specific build flags
+TW_IGNORE_MISC_WIPE_DATA := true
+TW_THEME := portrait_hdpi
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
+TW_DEFAULT_BRIGHTNESS := 140
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
+RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
+TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+TW_NO_REBOOT_BOOTLOADER := true
+TW_HAS_DOWNLOAD_MODE := true
+TW_NO_EXFAT_FUSE := true
+TW_NO_EXFAT := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_EXCLUDE_SUPERSU := true
+TWRP_INCLUDE_LOGCAT := true
+TW_INCLUDE_JPEG := true
+TW_TARGET_USES_QCOM_BSP := false
+TW_USE_TOOLBOX := true
+TWHAVE_SELINUX := true

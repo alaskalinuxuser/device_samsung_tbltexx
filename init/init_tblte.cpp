@@ -28,63 +28,49 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 
 #include "vendor_init.h"
-#include "property_service.h"
+#include <cutils/properties.h>
 #include "log.h"
 #include "util.h"
+#include <sys/system_properties.h>
 
-#include "init_msm.h"
-
-void gsm_properties()
-{
-    property_set("telephony.lteOnGsmDevice", "1");
-    property_set("ro.telephony.default_network", "9");
-}
-
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
-{
+void init_variant_properties() {
     char platform[PROP_VALUE_MAX];
     char bootloader[PROP_VALUE_MAX];
     char device[PROP_VALUE_MAX];
     char devicename[PROP_VALUE_MAX];
     int rc;
 
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
-
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
+    rc = property_get("ro.board.platform", platform, NULL);
+    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
         return;
 
-    property_get("ro.bootloader", bootloader);
+    property_get("ro.bootloader", bootloader, NULL);;
 
     if (strstr(bootloader, "N915FY")) {
         /* tbltexx These values are taken from tbltexx and edited for the 915FY FIXME */
-        property_set("ro.build.fingerprint", "samsung/tbltebtu/tblte:6.0/MDB08M/N915FYXXU1BOC3:user/release-keys");
-        property_set("ro.build.description", "tbltebtu-user 6.0 MDB08M N915FYXXU1BOC3 release-keys");
+        property_set("ro.build.fingerprint", "samsung/tbltebtu/tblte:6.0.1/MMB29M/N915FYXXS1DPG1:user/release-keys");
+        property_set("ro.build.description", "tbltebtu-user 6.0.1 MMB29M N915FYXXS1DPG1 release-keys");
         property_set("ro.product.model", "SM-N915FY");
         property_set("ro.product.device", "tbltexx");
-        gsm_properties();
     } else if (strstr(bootloader, "N915G")) {
          /* tbltedt */
--        property_set("ro.build.fingerprint", "samsung/tbltedt/tblte:6.0/MDB08M/N915GDTXXU1BOC6:user/release-keys");
--        property_set("ro.build.description", "tbltedt-user 6.0 MDB08M N915GDTXXU1BOC6 release-keys");
+         property_set("ro.build.fingerprint", "samsung/tbltebtu/tblte:6.0.1/MMB29M/N915FYXXS1DPG1:user/release-keys");
+        property_set("ro.build.description", "tbltebtu-user 6.0.1 MMB29M N915FYXXS1DPG1 release-keys");
          property_set("ro.product.model", "SM-N915G");
-         property_set("ro.product.device", "tblte");
-         gsm_properties();
+         property_set("ro.product.device", "tbltedt");
     } else {
         /* tblte */
-        property_set("ro.build.fingerprint", "samsung/tbltexx/tblte:6.0/MDB08M/N915FXXU1BOC6:user/release-keys");
-        property_set("ro.build.description", "tbltexx-user 6.0 MDB08M N915FXXU1BOC6 release-keys");
+        property_set("ro.build.fingerprint", "samsung/tbltebtu/tblte:6.0.1/MMB29M/N915FYXXS1DPG1:user/release-keys");
+        property_set("ro.build.description", "tbltebtu-user 6.0.1 MMB29M N915FYXXS1DPG1 release-keys");
         property_set("ro.product.model", "SM-N915F");
         property_set("ro.product.device", "tblte");
-        gsm_properties();
     }
 
-    property_get("ro.product.device", device);
+    property_get("ro.product.device", device, NULL);
     strlcpy(devicename, device, sizeof(devicename));
-    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader, devicename);
+    ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader, devicename);
 }
