@@ -16,11 +16,12 @@
 
 $(call inherit-product, device/samsung/tbltexx/full_tbltexx.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/slim/config/nfc_enhanced.mk)
-
 # Inherit common CM phone.
 $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 
 PRODUCT_DEVICE := tbltexx
 PRODUCT_NAME := slim_tbltexx
+
+LOCAL_PATH := device/samsung/tbltexx
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/twrp.fstab:recovery/root/etc/twrp.fstab
